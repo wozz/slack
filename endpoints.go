@@ -21,4 +21,6 @@ const (
 
 	usersInfoApiEndpoint = "users.info"
 	usersListApiEndpoint = "users.list"
+
+	emojiListApiEndpoint = "emoji.list"
 )
