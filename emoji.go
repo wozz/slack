@@ -7,7 +7,7 @@ import (
 )
 
 // API emoji.list: Lists all custom emojis in a Slack team.
-func (sl *Slack) EmojisList() ([]*interface{}, error) {
+func (sl *Slack) EmojisList() (map[string]string, error) {
 	uv := sl.urlValues()
 	body, err := sl.GetRequest(emojiListApiEndpoint, uv)
 	if err != nil {
@@ -29,9 +29,8 @@ type EmojiListAPIResponse struct {
 	RawEmojis json.RawMessage `json:"emoji"`
 }
 
-func (res *EmojiListAPIResponse) Emojis() ([]*interface{}, error) {
-	var emojis []*interface{}
-	fmt.Println(string(res.RawEmojis))
+func (res *EmojiListAPIResponse) Emojis() (map[string]string, error) {
+	var emojis map[string]string
 	err := json.Unmarshal(res.RawEmojis, &emojis)
 	if err != nil {
 		return nil, err
