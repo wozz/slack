@@ -5,13 +5,8 @@ import (
 	"errors"
 )
 
-type Emoji struct {
-	Name string `json:"name"`
-	Link string `json:"link"`
-}
-
 // API emoji.list: Lists all custom emojis in a Slack team.
-func (sl *Slack) EmojisList() ([]*Emoji, error) {
+func (sl *Slack) EmojisList() ([]*interface{}, error) {
 	uv := sl.urlValues()
 	body, err := sl.GetRequest(emojiListApiEndpoint, uv)
 	if err != nil {
@@ -28,14 +23,13 @@ func (sl *Slack) EmojisList() ([]*Emoji, error) {
 	return res.Emojis()
 }
 
-// response type of `users.list` api
 type EmojiListAPIResponse struct {
 	BaseAPIResponse
 	RawEmojis json.RawMessage `json:"emoji"`
 }
 
-func (res *EmojiListAPIResponse) Emojis() ([]*Emoji, error) {
-	var emojis []*Emoji
+func (res *EmojiListAPIResponse) Emojis() ([]*interface{}, error) {
+	var emojis []*interface{}
 	err := json.Unmarshal(res.RawEmojis, &emojis)
 	if err != nil {
 		return nil, err
