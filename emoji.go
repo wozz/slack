@@ -5,8 +5,10 @@ import (
 	"errors"
 )
 
+type Emojis map[string]string
+
 // API emoji.list: Lists all custom emojis in a Slack team.
-func (sl *Slack) EmojisList() (map[string]string, error) {
+func (sl *Slack) EmojisList() (Emojis, error) {
 	uv := sl.urlValues()
 	body, err := sl.GetRequest(emojiListApiEndpoint, uv)
 	if err != nil {
@@ -28,8 +30,8 @@ type EmojiListAPIResponse struct {
 	RawEmojis json.RawMessage `json:"emoji"`
 }
 
-func (res *EmojiListAPIResponse) Emojis() (map[string]string, error) {
-	var emojis map[string]string
+func (res *EmojiListAPIResponse) Emojis() (Emojis, error) {
+	var emojis Emojis
 	err := json.Unmarshal(res.RawEmojis, &emojis)
 	if err != nil {
 		return nil, err
