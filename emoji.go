@@ -3,7 +3,6 @@ package slack
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 )
 
 // API emoji.list: Lists all custom emojis in a Slack team.
