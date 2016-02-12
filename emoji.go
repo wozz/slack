@@ -3,6 +3,7 @@ package slack
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 )
 
 // API emoji.list: Lists all custom emojis in a Slack team.
@@ -30,6 +31,7 @@ type EmojiListAPIResponse struct {
 
 func (res *EmojiListAPIResponse) Emojis() ([]*interface{}, error) {
 	var emojis []*interface{}
+	fmt.Println(res.RawEmojis)
 	err := json.Unmarshal(res.RawEmojis, &emojis)
 	if err != nil {
 		return nil, err
