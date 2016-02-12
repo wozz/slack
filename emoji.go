@@ -31,7 +31,7 @@ type EmojiListAPIResponse struct {
 
 func (res *EmojiListAPIResponse) Emojis() ([]*interface{}, error) {
 	var emojis []*interface{}
-	fmt.Println(res.RawEmojis)
+	fmt.Println(string(res.RawEmojis))
 	err := json.Unmarshal(res.RawEmojis, &emojis)
 	if err != nil {
 		return nil, err
